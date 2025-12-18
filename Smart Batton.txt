@@ -1,0 +1,63 @@
+<style>
+  .dl-button-container {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .smart-dl-btn {
+    background-color: #2ecc71; /* Green color */
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-family: sans-serif;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background 0.3s;
+  }
+
+  .smart-dl-btn:hover {
+    background-color: #27ae60; /* Darker green on hover */
+  }
+</style>
+
+<div class="dl-button-container">
+  <button id="downloadBtn" 
+     class="smart-dl-btn"
+     data-ad-url="https://www.google.com" 
+     data-file-url="https://drive.google.com">
+     Download Now
+  </button>
+</div>
+
+<script>
+  (function() {
+    var btn = document.getElementById('downloadBtn');
+    var isAdClicked = false;
+
+    btn.addEventListener('click', function() {
+      // Get the links from the HTML above
+      var adLink = this.getAttribute('data-ad-url');
+      var fileLink = this.getAttribute('data-file-url');
+
+      if (!isAdClicked) {
+        // --- FIRST CLICK ---
+        // Open the ad in a new tab
+        window.open(adLink, '_blank');
+        
+        // Mark as clicked
+        isAdClicked = true;
+        
+        // Optional: Change button text to help the user understand
+        this.innerText = "Link Unlocked: Click Again to Download";
+        this.style.backgroundColor = "#e74c3c"; // Change color to red to show state change
+      } else {
+        // --- SECOND CLICK ---
+        // Redirect current tab to the download file
+        window.location.href = fileLink;
+      }
+    });
+  })();
+</script>
